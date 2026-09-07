@@ -889,3 +889,5 @@ OmniMail 支持通过 [LINUX DO Connect](https://connect.linux.do/) 完成第三
 OmniMail 使用 [MIT License](./LICENSE)。
 
 Copyright © 2026 OmniMail contributors.
+
+<!-- trigger rebuild -->
