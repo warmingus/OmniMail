@@ -19,20 +19,19 @@ jobs:
         with:
           node-version: 22
 
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
+      - name: Enable Corepack & Setup PNPM
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile || npm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build Web Assets
-        run: npm run build
+        run: pnpm run build
 
       - name: Deploy Worker
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: deploy
+        run: pnpm run deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
